@@ -1,0 +1,54 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LMS_Business_Layer.DTO.EmployeeDTO
+{
+    public class Employee_GetDTO
+    {
+
+        [Key]
+        public long ID { get; set; }
+        [Required(ErrorMessage = "User_Name is required")]
+        [StringLength(100, ErrorMessage = "Username cannot be longer than 100 characters.")]
+        public string User_Name { get; set; }
+
+        [Required(ErrorMessage = "Name is required")]
+        [StringLength(100, ErrorMessage = "Name cannot be longer than 100 characters.")]
+        public string en_name { get; set; }
+
+        [StringLength(100, ErrorMessage = "لا يمكن أن يكون الاسم أطول من 100 حرف")]
+        public string? ar_name { get; set; }
+
+        public string? Mobile { get; set; }
+        public string? Phone { get; set; }
+        public string? Email { get; set; }
+        public string? LicenseNumber { get; set; }
+        public string? ExpireDate { get; set; }
+        public DateOnly? HireDate { get; set; }
+        public bool? HasAttendance { get; set; }
+        public string? AttendanceTime { get; set; }
+        public string? DepartureTime { get; set; }
+        public string? Address { get; set; }
+        public long Role_ID { get; set; }
+        public string? Role_Name { get; set; }
+        public long EmployeeTypeID { get; set; }
+        public string? EmployeeTypeName { get; set; }
+        public string? EmployeeTypeArabicName { get; set; }
+        public bool? CanReceiveRequest { get; set; }
+        public bool? CanReceiveRequestFromParent { get; set; }
+        public bool? CanReceiveMessageFromParent { get; set; }
+        public decimal? MonthlyLeaveRequestBalance { get; set; }
+        public decimal? MonthlyLeaveRequestUsed { get; set; }
+        public bool IsSuspended { get; set; }
+        public bool IsRestrictedForLoctaion { get; set; }
+        public List<long>? FloorsSelected { get; set; }
+        public List<long>? GradeSelected { get; set; }
+        public List<long>? LocationSelected { get; set; }
+        public List<long>? SubjectSelected { get; set; }
+        public long? InsertedByUserId { get; set; }
+    }
+}
