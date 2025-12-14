@@ -4,6 +4,7 @@ using LMS_Data_Access_Layer.IRepository.Interfaces;
 using LMS_Data_Access_Layer.IUnitOfWorkFolder.Interface;
 using LMS_Data_Access_Layer.Models;
 using LMS_Data_Access_Layer.Models.Administration;
+using LMS_Data_Access_Layer.Models.HR;
 using LMS_Data_Access_Layer.Models.Learning_Management_System;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -39,6 +40,10 @@ namespace LMS_Data_Access_Layer.IUnitOfWorkfolder.UnitOfWork
             Jobs_Repository = new GenericRepo<Job>(_context);
             JobCategories_Repository = new GenericRepo<JobCategory>(_context);
             ReasonsForLeavingWork_Repository = new GenericRepo<ReasonForLeavingWork>(_context);
+            EmployeeTypes_Repository = new GenericRepo<EmployeeType>(_context);
+            SubjectSupervisors_Repository = new GenericRepo<SubjectSupervisor>(_context);
+            GradeSupervisors_Repository = new GenericRepo<GradeSupervisor>(_context);
+            LeaveRequests_Repository = new GenericRepo<LeaveRequest>(_context);
 
         }
 
@@ -78,8 +83,13 @@ namespace LMS_Data_Access_Layer.IUnitOfWorkfolder.UnitOfWork
 
         public IGenericRepository<ReasonForLeavingWork> ReasonsForLeavingWork_Repository { get; }
 
-    
-}
+        public IGenericRepository<EmployeeType> EmployeeTypes_Repository { get; }
+
+        public IGenericRepository<SubjectSupervisor> SubjectSupervisors_Repository { get; }
+
+        public IGenericRepository<GradeSupervisor> GradeSupervisors_Repository { get; }
+        public IGenericRepository<LeaveRequest> LeaveRequests_Repository { get; }
+    }
 
 
 }

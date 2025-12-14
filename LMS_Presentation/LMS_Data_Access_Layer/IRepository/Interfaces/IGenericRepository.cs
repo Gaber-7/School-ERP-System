@@ -31,7 +31,7 @@ namespace LMS_Data_Access_Layer.IRepository.Interfaces
         Task DeleteAsync(long id);
 
         TEntity First_Or_Default(Expression<Func<TEntity, bool>> predicate); //Search for the first element that matches a given condition - or return null if no element is found.
-
+        //Task<TEntity> First_Or_DefaultAsync(Expression<Func<TEntity, bool>> predicate);//-- Async
         TEntity Last_Or_Default<TKey>(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TKey>> orderBy); //Search for the last element that matches a given condition - or return null if no element is found.
 
         List<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate); // All items that meet the condition are withdrawn
@@ -40,17 +40,14 @@ namespace LMS_Data_Access_Layer.IRepository.Interfaces
 
         IQueryable<TEntity> Query(); // To be used for complex queries with filtering, sorting, and paging
 
-
-        //IQueryable<T> SelectQuery<T>(Expression<Func<T, bool>> filter) where T : class;
-
-        //Task<List<TEntity>> Select_All_With_IncludesByIdAsync<TProperty>(Expression<Func<TEntity, bool>> predicate,
-        //  params Expression<Func<TEntity, object>>[] includes);
         Task<List<TEntity>> Select_All_With_IncludesById(Expression<Func<TEntity, bool>> predicate,
-               params Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>[] includes);
+       params Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>[] includes);
 
         IQueryable<TEntity> Select_All_With_IncludesById_Pagination(Expression<Func<TEntity, bool>> filter,
          params Func<IQueryable<TEntity>, IQueryable<TEntity>>[] includes);
 
+        void SaveChanges();
+        Task SaveChangesAsync();
 
     }
 }

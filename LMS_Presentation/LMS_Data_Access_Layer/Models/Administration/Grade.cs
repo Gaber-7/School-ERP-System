@@ -22,6 +22,7 @@ namespace LMS_Data_Access_Layer.Models.Administration
 
         public ICollection<Classroom> Classrooms { get; set; } = new HashSet<Classroom>();
         public ICollection<Subject> Subjects { get; set; } = new HashSet<Subject>();
+        public ICollection<GradeSupervisor> GradeSupervisors { get; set; } = new HashSet<GradeSupervisor>();
 
         [ForeignKey("Section")]
         public long SectionID { get; set; }

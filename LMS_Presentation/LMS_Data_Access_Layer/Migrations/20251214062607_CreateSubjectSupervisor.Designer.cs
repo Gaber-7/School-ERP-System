@@ -4,6 +4,7 @@ using LMS_Data_Access_Layer.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LMS_Data_Access_Layer.Migrations
 {
     [DbContext(typeof(LMS_CMS_Context))]
-    partial class LMS_CMS_ContextModelSnapshot : ModelSnapshot
+    [Migration("20251214062607_CreateSubjectSupervisor")]
+    partial class CreateSubjectSupervisor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -785,72 +788,6 @@ namespace LMS_Data_Access_Layer.Migrations
                     b.ToTable("EmployeeTypes");
                 });
 
-            modelBuilder.Entity("LMS_Data_Access_Layer.Models.HR.LeaveRequest", b =>
-                {
-                    b.Property<long>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("ID"));
-
-                    b.Property<DateOnly>("Date")
-                        .HasColumnType("date");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("DeletedByOctaId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeletedByUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("EmployeeID")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("Hours")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("InsertedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("InsertedByOctaId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("InsertedByUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<bool?>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Minutes")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("UpdatedByOctaId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("UpdatedByUserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("DeletedByUserId");
-
-                    b.HasIndex("EmployeeID");
-
-                    b.HasIndex("InsertedByUserId");
-
-                    b.HasIndex("UpdatedByUserId");
-
-                    b.ToTable("leaveRequests");
-                });
-
             modelBuilder.Entity("LMS_Data_Access_Layer.Models.Learning_Management_System.AcademicYear", b =>
                 {
                     b.Property<long>("ID")
@@ -989,65 +926,6 @@ namespace LMS_Data_Access_Layer.Migrations
                     b.HasIndex("UpdatedByUserId");
 
                     b.ToTable("Classrooms");
-                });
-
-            modelBuilder.Entity("LMS_Data_Access_Layer.Models.Learning_Management_System.GradeSupervisor", b =>
-                {
-                    b.Property<long>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("ID"));
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("DeletedByOctaId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeletedByUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("EmployeeID")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("GradeID")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("InsertedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("InsertedByOctaId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("InsertedByUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<bool?>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("UpdatedByOctaId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("UpdatedByUserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("DeletedByUserId");
-
-                    b.HasIndex("EmployeeID");
-
-                    b.HasIndex("GradeID");
-
-                    b.HasIndex("InsertedByUserId");
-
-                    b.HasIndex("UpdatedByUserId");
-
-                    b.ToTable("GradeSupervisors");
                 });
 
             modelBuilder.Entity("LMS_Data_Access_Layer.Models.Learning_Management_System.School", b =>
@@ -2024,36 +1902,6 @@ namespace LMS_Data_Access_Layer.Migrations
                     b.Navigation("UpdatedByEmployee");
                 });
 
-            modelBuilder.Entity("LMS_Data_Access_Layer.Models.HR.LeaveRequest", b =>
-                {
-                    b.HasOne("LMS_Data_Access_Layer.Models.Employee", "DeletedByEmployee")
-                        .WithMany()
-                        .HasForeignKey("DeletedByUserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("LMS_Data_Access_Layer.Models.Employee", "Employee")
-                        .WithMany("LeaveRequests")
-                        .HasForeignKey("EmployeeID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("LMS_Data_Access_Layer.Models.Employee", "InsertedByEmployee")
-                        .WithMany()
-                        .HasForeignKey("InsertedByUserId");
-
-                    b.HasOne("LMS_Data_Access_Layer.Models.Employee", "UpdatedByEmployee")
-                        .WithMany()
-                        .HasForeignKey("UpdatedByUserId");
-
-                    b.Navigation("DeletedByEmployee");
-
-                    b.Navigation("Employee");
-
-                    b.Navigation("InsertedByEmployee");
-
-                    b.Navigation("UpdatedByEmployee");
-                });
-
             modelBuilder.Entity("LMS_Data_Access_Layer.Models.Learning_Management_System.AcademicYear", b =>
                 {
                     b.HasOne("LMS_Data_Access_Layer.Models.Employee", "DeletedByEmployee")
@@ -2121,44 +1969,6 @@ namespace LMS_Data_Access_Layer.Migrations
                     b.Navigation("DeletedByEmployee");
 
                     b.Navigation("Floor");
-
-                    b.Navigation("Grade");
-
-                    b.Navigation("InsertedByEmployee");
-
-                    b.Navigation("UpdatedByEmployee");
-                });
-
-            modelBuilder.Entity("LMS_Data_Access_Layer.Models.Learning_Management_System.GradeSupervisor", b =>
-                {
-                    b.HasOne("LMS_Data_Access_Layer.Models.Employee", "DeletedByEmployee")
-                        .WithMany()
-                        .HasForeignKey("DeletedByUserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("LMS_Data_Access_Layer.Models.Employee", "Employee")
-                        .WithMany("GradeSupervisors")
-                        .HasForeignKey("EmployeeID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("LMS_Data_Access_Layer.Models.Administration.Grade", "Grade")
-                        .WithMany("GradeSupervisors")
-                        .HasForeignKey("GradeID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("LMS_Data_Access_Layer.Models.Employee", "InsertedByEmployee")
-                        .WithMany()
-                        .HasForeignKey("InsertedByUserId");
-
-                    b.HasOne("LMS_Data_Access_Layer.Models.Employee", "UpdatedByEmployee")
-                        .WithMany()
-                        .HasForeignKey("UpdatedByUserId");
-
-                    b.Navigation("DeletedByEmployee");
-
-                    b.Navigation("Employee");
 
                     b.Navigation("Grade");
 
@@ -2383,8 +2193,6 @@ namespace LMS_Data_Access_Layer.Migrations
                 {
                     b.Navigation("Classrooms");
 
-                    b.Navigation("GradeSupervisors");
-
                     b.Navigation("Subjects");
                 });
 
@@ -2411,10 +2219,6 @@ namespace LMS_Data_Access_Layer.Migrations
             modelBuilder.Entity("LMS_Data_Access_Layer.Models.Employee", b =>
                 {
                     b.Navigation("Floors");
-
-                    b.Navigation("GradeSupervisors");
-
-                    b.Navigation("LeaveRequests");
 
                     b.Navigation("SubjectSupervisors");
                 });

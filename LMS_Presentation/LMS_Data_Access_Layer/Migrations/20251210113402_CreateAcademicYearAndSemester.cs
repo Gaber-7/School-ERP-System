@@ -8,7 +8,7 @@ namespace LMS_Data_Access_Layer.Migrations
     /// <inheritdoc />
     public partial class CreateAcademicYearAndSemester : Migration
     {
-        /// <inheritdoc />    // Add-Migration CreateAuditableEntity -OutputDir Migrations
+        /// <inheritdoc />    // Add-Migration CreateLeaveRequest -OutputDir Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(

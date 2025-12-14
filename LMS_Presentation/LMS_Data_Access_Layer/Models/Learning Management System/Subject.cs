@@ -38,6 +38,7 @@ namespace LMS_Data_Access_Layer.Models.Learning_Management_System
         [ForeignKey("SubjectCategory")]
         public long SubjectCategoryID { get; set; }
         public SubjectCategory SubjectCategory { get; set; }
+        public ICollection<SubjectSupervisor> SubjectSupervisors { get; set; } = new HashSet<SubjectSupervisor>();
 
 
     }

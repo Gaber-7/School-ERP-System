@@ -1,4 +1,6 @@
 ﻿using LMS_Data_Access_Layer.Models.Administration;
+using LMS_Data_Access_Layer.Models.HR;
+using LMS_Data_Access_Layer.Models.Learning_Management_System;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -84,6 +86,9 @@ namespace LMS_Data_Access_Layer.Models
         public long EmployeeTypeID { get; set; }
         public EmployeeType EmployeeType { get; set; }
         public ICollection<Floor> Floors { get; set; } = new HashSet<Floor>();
+        public ICollection<SubjectSupervisor> SubjectSupervisors { get; set; } = new HashSet<SubjectSupervisor>();
+        public ICollection<GradeSupervisor> GradeSupervisors { get; set; } = new HashSet<GradeSupervisor>();
+        public ICollection<LeaveRequest> LeaveRequests { get; set; } = new HashSet<LeaveRequest>();
 
     }
 }

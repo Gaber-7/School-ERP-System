@@ -1,5 +1,6 @@
 ﻿using LMS_Data_Access_Layer.Models;
 using LMS_Data_Access_Layer.Models.Administration;
+using LMS_Data_Access_Layer.Models.HR;
 using LMS_Data_Access_Layer.Models.Learning_Management_System;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -33,6 +34,9 @@ namespace LMS_Data_Access_Layer.Data
         public DbSet<Subject> Subject { get; set; }
         public DbSet<SubjectCategory> SubjectCategory { get; set; }
         public DbSet<EmployeeType> EmployeeTypes { get; set; }
+        public DbSet<SubjectSupervisor> SubjectSupervisor { get; set; }
+        public DbSet<GradeSupervisor> GradeSupervisors { get; set; }
+        public DbSet<LeaveRequest> leaveRequests { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -98,11 +102,11 @@ namespace LMS_Data_Access_Layer.Data
             //     .WithMany(p => p.Employees)
             //     .HasForeignKey(p => p.AccountNumberID)
             //     .OnDelete(DeleteBehavior.Restrict);
-             modelBuilder.Entity<Employee>()
-                .HasOne(p => p.ReasonForLeavingWork)
-                .WithMany(p => p.Employees)
-                .HasForeignKey(p => p.ReasonOfLeavingID)
-                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Employee>()
+               .HasOne(p => p.ReasonForLeavingWork)
+               .WithMany(p => p.Employees)
+               .HasForeignKey(p => p.ReasonOfLeavingID)
+               .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Employee>()
                  .HasOne(p => p.Department)
@@ -128,17 +132,17 @@ namespace LMS_Data_Access_Layer.Data
                .HasForeignKey(p => p.schoolId)
                .OnDelete(DeleteBehavior.Restrict);
 
-              modelBuilder.Entity<Semester>()
-                .HasOne(p => p.AcademicYear)
-                .WithMany(p => p.Semesters)
-                .HasForeignKey(p => p.AcademicYearID)
-                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Semester>()
+              .HasOne(p => p.AcademicYear)
+              .WithMany(p => p.Semesters)
+              .HasForeignKey(p => p.AcademicYearID)
+              .OnDelete(DeleteBehavior.Restrict);
 
-              modelBuilder.Entity<Subject>()
-                 .HasOne(p => p.Grade)
-                 .WithMany(p => p.Subjects)
-                 .HasForeignKey(p => p.GradeID)
-                 .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Subject>()
+               .HasOne(p => p.Grade)
+               .WithMany(p => p.Subjects)
+               .HasForeignKey(p => p.GradeID)
+               .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Subject>()
                  .HasOne(p => p.SubjectCategory)
@@ -190,6 +194,106 @@ namespace LMS_Data_Access_Layer.Data
               .HasForeignKey(p => p.EmployeeTypeID)
               .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<LeaveRequest>()
+              .HasOne(p => p.Employee)
+              .WithMany(p => p.LeaveRequests)
+              .HasForeignKey(p => p.EmployeeID)
+              .OnDelete(DeleteBehavior.Restrict);   
+
+
+            //modelBuilder.Entity<Floor>()
+            //   .HasOne(f => f.DeletedByEmployee)
+            //   .WithMany()
+            //   .HasForeignKey(f => f.DeletedByUserId)
+            //   .OnDelete(DeleteBehavior.Restrict);
+
+
+            // تكوين علاقات AuditableEntity لـ Floor
+            modelBuilder.Entity<Floor>()
+                .HasOne(f => f.InsertedByEmployee)
+                .WithMany()
+                .HasForeignKey(f => f.InsertedByUserId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired(false);
+
+            modelBuilder.Entity<Floor>()
+                .HasOne(f => f.UpdatedByEmployee)
+                .WithMany()
+                .HasForeignKey(f => f.UpdatedByUserId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired(false);
+
+            modelBuilder.Entity<Floor>()
+                .HasOne(f => f.DeletedByEmployee)
+                .WithMany()
+                .HasForeignKey(f => f.DeletedByUserId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired(false);
+
+            // علاقة floorMonitor
+            modelBuilder.Entity<Floor>()
+                .HasOne(f => f.floorMonitor) // Floor له موظف مسؤول واحد
+                .WithMany(e => e.Floors)  // Employee له عدة Floors
+                .HasForeignKey(f => f.FloorMonitorID)
+                .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired(false);
+
+
+            modelBuilder.Entity<SubjectSupervisor>()
+              .HasOne(p => p.Employee)
+              .WithMany(p => p.SubjectSupervisors)
+              .HasForeignKey(p => p.EmployeeID)
+              .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SubjectSupervisor>()
+              .HasOne(p => p.Subject)
+              .WithMany(p => p.SubjectSupervisors)
+              .HasForeignKey(p => p.SubjectID)
+              .OnDelete(DeleteBehavior.Restrict);
+
+
+            modelBuilder.Entity<SubjectSupervisor>()
+               .HasOne(f => f.DeletedByEmployee)
+               .WithMany()
+               .HasForeignKey(f => f.DeletedByUserId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Student>()
+            .HasOne(f => f.DeletedByEmployee)
+            .WithMany()
+            .HasForeignKey(f => f.DeletedByUserId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+
+            modelBuilder.Entity<Classroom>()
+           .HasOne(c => c.DeletedByEmployee)
+           .WithMany()
+           .HasForeignKey(c => c.DeletedByUserId)
+           .OnDelete(DeleteBehavior.Restrict); // Optional
+
+            modelBuilder.Entity<GradeSupervisor>()
+                .HasOne(p => p.Grade)  // GradeSupervisor مرتبط بدرجة واحدة
+                .WithMany(p => p.GradeSupervisors)     // Grade يمكن أن يكون له عدة مشرفين
+                .HasForeignKey(p => p.GradeID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<GradeSupervisor>()
+              .HasOne(p => p.Employee)
+              .WithMany(p => p.GradeSupervisors)
+              .HasForeignKey(p => p.EmployeeID)
+              .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<GradeSupervisor>()
+                .HasOne(f => f.DeletedByEmployee)
+                .WithMany()
+                .HasForeignKey(f => f.DeletedByUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<LeaveRequest>()
+                .HasOne(v => v.DeletedByEmployee)
+                .WithMany()
+                .HasForeignKey(v => v.DeletedByUserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Employee>(entity =>
             {

@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using LMS_Business_Layer.DTO.DepartmentDTO;
+using LMS_Data_Access_Layer.Models.Administration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +13,15 @@ namespace LMS_Business_Layer.Config
     {
         public MappingProfiles()
         {
-            // Create your mapping configurations here
-           
-            // CreateMap<SourceModel, DestinationModel>();
+            // Employee Mappings
+            CreateMap<Department_Get_DTO, Department>().ReverseMap();
+
+
+
+            // Department Mappings
+            CreateMap<Department, Department_Get_DTO>().ReverseMap();
+            CreateMap<Department_Add_DTO, Department>().ReverseMap();
+            CreateMap<Department_Get_DTO, Department>().ReverseMap();
         }
     }
 }

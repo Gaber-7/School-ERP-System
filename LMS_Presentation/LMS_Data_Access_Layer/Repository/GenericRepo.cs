@@ -89,10 +89,15 @@ namespace LMS_Business_Layer.Repository
             _dbSet.RemoveRange(entities);
         }
 
-        //public IQueryable<T> SelectQuery<T>(Expression<Func<T, bool>> filter) where T : class
-        //{
-        //    return _dbSet.Where(filter);
-        //}     
+        public void SaveChanges()
+        {
+            _Context.SaveChanges();
+        }
+
+        public async Task SaveChangesAsync()
+        {
+          await _Context.SaveChangesAsync();
+        }
 
         public List<TEntity> Select_All()
         {
@@ -115,6 +120,7 @@ namespace LMS_Business_Layer.Repository
 
             return await query.Where(predicate).ToListAsync();
         }
+   
 
         public IQueryable<TEntity> Select_All_With_IncludesById_Pagination(Expression<Func<TEntity, bool>> filter, params Func<IQueryable<TEntity>, IQueryable<TEntity>>[] includes)
         {
