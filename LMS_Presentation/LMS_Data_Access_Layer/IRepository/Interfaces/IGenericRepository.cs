@@ -36,8 +36,10 @@ namespace LMS_Data_Access_Layer.IRepository.Interfaces
 
         List<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate); // All items that meet the condition are withdrawn
 
-        Task<List<TEntity>> FindByAsync<T>(Expression<Func<TEntity, bool>> predicate); // All items that meet the condition are withdrawn Async
+        //Task<List<TEntity>> FindByAsync<T>(Expression<Func<TEntity, bool>> predicate); // All items that meet the condition are withdrawn Async
 
+        Task<TEntity?> FindByIncludesAsync(Expression<Func<TEntity, bool>> predicate,
+            params Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>[] includes);
         IQueryable<TEntity> Query(); // To be used for complex queries with filtering, sorting, and paging
 
         Task<List<TEntity>> Select_All_With_IncludesById(Expression<Func<TEntity, bool>> predicate,

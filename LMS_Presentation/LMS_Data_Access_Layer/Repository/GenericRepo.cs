@@ -61,10 +61,23 @@ namespace LMS_Business_Layer.Repository
             return _dbSet.Where(predicate).ToList();
         }
 
-        public async Task<List<TEntity>> FindByAsync<T>(Expression<Func<TEntity, bool>> predicate)
+        public async Task<TEntity?> FindByIncludesAsync(Expression<Func<TEntity, bool>> predicate,
+          params Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>[] includes)
         {
-            return await _dbSet.Where(predicate).ToListAsync();
+            IQueryable<TEntity> query = _dbSet;
+
+            foreach (var include in includes)
+            {
+                query = include(query);
+            }
+
+            return await query.FirstOrDefaultAsync(predicate);
         }
+
+        //public async Task<List<TEntity>> FindByAsync<T>(Expression<Func<TEntity, bool>> predicate)
+        //{
+        //    return await _dbSet.Where(predicate).ToListAsync();
+        //}
 
         public TEntity First_Or_Default(Expression<Func<TEntity, bool>> predicate)
         {

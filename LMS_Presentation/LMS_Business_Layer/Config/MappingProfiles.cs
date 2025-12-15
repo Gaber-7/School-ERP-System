@@ -22,6 +22,10 @@ namespace LMS_Business_Layer.Config
             CreateMap<Department, Department_Get_DTO>().ReverseMap();
             CreateMap<Department_Add_DTO, Department>().ReverseMap();
             CreateMap<Department_Get_DTO, Department>().ReverseMap();
+
+
+            // Academic Year Mappings
+
         }
     }
 }
