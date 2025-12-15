@@ -30,11 +30,11 @@ namespace LMS_Presentation_Layer.Controllers.Learning_Management_System
               query => query.Include(emp => emp.School));
 
             if (academicYear == null || academicYear.Count == 0)
-                {
+            {
                 return NotFound("No Academic Years found.");
             }
 
-           List<AcademicYear_Get_DTO> academicYear_Get_DTOs = mapper.Map<List<AcademicYear_Get_DTO>>(academicYear);
+            List<AcademicYear_Get_DTO> academicYear_Get_DTOs = mapper.Map<List<AcademicYear_Get_DTO>>(academicYear);
 
             return Ok(academicYear_Get_DTOs);
         }
@@ -45,17 +45,39 @@ namespace LMS_Presentation_Layer.Controllers.Learning_Management_System
             var academicYear = await unitOfWork.AcademicYears_Repository.FindByIncludesAsync(
                 em => em.IsDeleted != true && em.ID == id,
                 query => query.Include(e => e.School));
-             
+
             if (academicYear == null)
             {
                 return NotFound($"Academic Year with ID {id} not found.");
             }
 
-            AcademicYear_Get_DTO academicYear_Get_DTO = mapper.Map<AcademicYear_Get_DTO>(academicYear);             
+            AcademicYear_Get_DTO academicYear_Get_DTO = mapper.Map<AcademicYear_Get_DTO>(academicYear);
             return Ok(academicYear_Get_DTO);
 
 
         }
+        [HttpPost]
+        public async Task<IActionResult> Add([FromBody] AcademicYear_Add_DTO NewacademicYear_Add_DTO)
+        {
 
+           if (NewacademicYear_Add_DTO == null)
+                return BadRequest("AcademicYear cannot be null");
+           
+           if (NewacademicYear_Add_DTO.Name == null)
+                return BadRequest("the name cannot be null");
+           
+           School school =  unitOfWork.Schools_Repository.First_Or_Default(s => s.ID == NewacademicYear_Add_DTO.SchoolID && s.IsDeleted != true);
+
+           if (school == null)
+           { 
+            return NotFound($"School with ID {NewacademicYear_Add_DTO.SchoolID} not found.");
+           }
+            AcademicYear academicYear = mapper.Map<AcademicYear>(NewacademicYear_Add_DTO);
+
+
+            List<AcademicYear> academicYears =  unitOfWork.AcademicYears_Repository.FindBy(
+                ay => ay.SchoolID == NewacademicYear_Add_DTO.SchoolID && ay.IsDeleted != true);
+
+        }
     }
 }
