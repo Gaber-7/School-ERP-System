@@ -56,28 +56,28 @@ namespace LMS_Presentation_Layer.Controllers.Learning_Management_System
 
 
         }
-        [HttpPost]
-        public async Task<IActionResult> Add([FromBody] AcademicYear_Add_DTO NewacademicYear_Add_DTO)
-        {
+        //[HttpPost]
+        //public async Task<IActionResult> Add([FromBody] AcademicYear_Add_DTO NewacademicYear_Add_DTO)
+        //{
 
-           if (NewacademicYear_Add_DTO == null)
-                return BadRequest("AcademicYear cannot be null");
+        //   if (NewacademicYear_Add_DTO == null)
+        //        return BadRequest("AcademicYear cannot be null");
            
-           if (NewacademicYear_Add_DTO.Name == null)
-                return BadRequest("the name cannot be null");
+        //   if (NewacademicYear_Add_DTO.Name == null)
+        //        return BadRequest("the name cannot be null");
            
-           School school =  unitOfWork.Schools_Repository.First_Or_Default(s => s.ID == NewacademicYear_Add_DTO.SchoolID && s.IsDeleted != true);
+        //   School school =  unitOfWork.Schools_Repository.First_Or_Default(s => s.ID == NewacademicYear_Add_DTO.SchoolID && s.IsDeleted != true);
 
-           if (school == null)
-           { 
-            return NotFound($"School with ID {NewacademicYear_Add_DTO.SchoolID} not found.");
-           }
-            AcademicYear academicYear = mapper.Map<AcademicYear>(NewacademicYear_Add_DTO);
+        //   if (school == null)
+        //   { 
+        //    return NotFound($"School with ID {NewacademicYear_Add_DTO.SchoolID} not found.");
+        //   }
+        //    AcademicYear academicYear = mapper.Map<AcademicYear>(NewacademicYear_Add_DTO);
 
 
-            List<AcademicYear> academicYears =  unitOfWork.AcademicYears_Repository.FindBy(
-                ay => ay.SchoolID == NewacademicYear_Add_DTO.SchoolID && ay.IsDeleted != true);
+        //    List<AcademicYear> academicYears =  unitOfWork.AcademicYears_Repository.FindBy(
+        //        ay => ay.SchoolID == NewacademicYear_Add_DTO.SchoolID && ay.IsDeleted != true);
 
-        }
+        //}
     }
 }
