@@ -37,6 +37,7 @@ namespace LMS_Data_Access_Layer.Data
         public DbSet<SubjectSupervisor> SubjectSupervisor { get; set; }
         public DbSet<GradeSupervisor> GradeSupervisors { get; set; }
         public DbSet<LeaveRequest> leaveRequests { get; set; }
+        public DbSet<EmployeeAttachment> EmployeeAttachment { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -238,6 +239,11 @@ namespace LMS_Data_Access_Layer.Data
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(false);
 
+            modelBuilder.Entity<Employee>()
+              .HasMany(e => e.EmployeeAttachments)
+              .WithOne(ea => ea.Employee)
+              .HasForeignKey(ea => ea.EmployeeID)
+              .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<SubjectSupervisor>()
               .HasOne(p => p.Employee)

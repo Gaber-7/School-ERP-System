@@ -85,10 +85,15 @@ namespace LMS_Data_Access_Layer.Models
         [ForeignKey("EmployeeType")]
         public long EmployeeTypeID { get; set; }
         public EmployeeType EmployeeType { get; set; }
+
+        [ForeignKey("Manager")]
+        public long? ManagerID { get; set; }
+        public Employee? Manager { get; set; }
         public ICollection<Floor> Floors { get; set; } = new HashSet<Floor>();
         public ICollection<SubjectSupervisor> SubjectSupervisors { get; set; } = new HashSet<SubjectSupervisor>();
         public ICollection<GradeSupervisor> GradeSupervisors { get; set; } = new HashSet<GradeSupervisor>();
         public ICollection<LeaveRequest> LeaveRequests { get; set; } = new HashSet<LeaveRequest>();
+        public ICollection<EmployeeAttachment> EmployeeAttachments { get; set; } = new HashSet<EmployeeAttachment>();
 
     }
 }

@@ -19,6 +19,8 @@ namespace LMS_Data_Access_Layer.Models.Learning_Management_System
         public DateOnly DateFrom { get; set; }
         public DateOnly DateTo { get; set; }
         public bool IsActive { get; set; }
+        public DateOnly? SummerCourseDateFrom { get; set; }
+        public DateOnly? SummerCourseDateTo { get; set; }
 
         [ForeignKey("School")]
         public long schoolId { get; set; }

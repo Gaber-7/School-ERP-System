@@ -5,22 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LMS_Business_Layer.DTO.AcademicYearDTO
+namespace LMS_Business_Layer.DTO.SectionDTO
 {
-    public class AcademicYear_Get_DTO
+    public class Section_GetDTO
     {
+        [Key]
         public long ID { get; set; }
         [Required(ErrorMessage = "Name is required")]
         [StringLength(100, ErrorMessage = "Name cannot be longer than 100 characters.")]
         public string Name { get; set; }
-        public DateOnly DateFrom { get; set; }
-        public DateOnly DateTo { get; set; }
-        public bool IsActive { get; set; }
-        public long SchoolId { get; set; }
-        public string? schoolName { get; set; }
+        public long SchoolID { get; set; }
+        public string SchoolName { get; set; }
         public long? InsertedByUserId { get; set; }
-
-        public DateOnly? SummerCourseDateFrom { get; set; }
-        public DateOnly? SummerCourseDateTo { get; set; }
     }
 }
