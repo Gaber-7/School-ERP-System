@@ -51,7 +51,7 @@ namespace LMS_Presentation_Layer.Controllers.Learning_Management_System
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] School_AddDTO newSchool)
+        public async Task<IActionResult> Add([FromForm] School_AddDTO newSchool)
         {
 
             if (newSchool == null)
@@ -64,7 +64,6 @@ namespace LMS_Presentation_Layer.Controllers.Learning_Management_System
             }
 
             var School = mapper.Map<School>(newSchool);
-            School school = mapper.Map<School>(newSchool);
 
 
             unitOfWork.Schools_Repository.Add(School);
@@ -74,7 +73,7 @@ namespace LMS_Presentation_Layer.Controllers.Learning_Management_System
         }
 
         [HttpPut]
-        public async Task<IActionResult> Edit([FromBody] School_GetDTO newSchool)
+        public async Task<IActionResult> Edit([FromForm] School_GetDTO newSchool)
         {
             if (newSchool == null)
             {

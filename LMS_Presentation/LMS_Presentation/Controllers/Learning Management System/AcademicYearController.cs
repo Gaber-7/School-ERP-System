@@ -62,7 +62,7 @@ namespace LMS_Presentation_Layer.Controllers.Learning_Management_System
 
         }
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] AcademicYear_Add_DTO NewacademicYear_Add_DTO)
+        public async Task<IActionResult> Add([FromForm] AcademicYear_Add_DTO NewacademicYear_Add_DTO)
         {
 
             if (NewacademicYear_Add_DTO == null)
@@ -97,7 +97,7 @@ namespace LMS_Presentation_Layer.Controllers.Learning_Management_System
 
         }
         [HttpPut]
-        public async Task<IActionResult> Edit([FromBody] AcademicYear_Get_DTO academicYear_Get_DTO)
+        public async Task<IActionResult> Edit([FromForm] AcademicYear_Get_DTO academicYear_Get_DTO)
         {
             if (academicYear_Get_DTO == null)
                 return BadRequest("Academic Year cannot be null");

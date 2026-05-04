@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using LMS_Business_Layer.DTO.AcademicYearDTO;
 using LMS_Business_Layer.DTO.DepartmentDTO;
+using LMS_Business_Layer.DTO.Grade_DTO;
 using LMS_Business_Layer.DTO.School_DTO;
 using LMS_Business_Layer.DTO.SectionDTO;
 using LMS_Business_Layer.DTO.Semester_DTO;
@@ -30,9 +31,10 @@ namespace LMS_Business_Layer.Config
 
 
             // School Mappings
-            CreateMap<School, School_GetDTO>().ReverseMap();
-            CreateMap<School_AddDTO, School>().ReverseMap();
-
+            CreateMap<School, School_GetDTO>();
+            CreateMap<School_AddDTO, School>();
+            // Update Mapping
+            CreateMap<School_GetDTO, School>();
 
             // Academic Year Mappings
             CreateMap<AcademicYear, AcademicYear_Get_DTO>()
@@ -66,7 +68,11 @@ namespace LMS_Business_Layer.Config
 
 
             // Grade Mappings
-
+            CreateMap<Grade, Grade_Get_DTO>()
+                .ForMember(dest => dest.SectionName,
+                           opt => opt.MapFrom(src => src.Section.Name));
+            // Add Mapping Grade
+            CreateMap<Grade_Add_DTO, Grade>();
 
             // Building Mappings
 

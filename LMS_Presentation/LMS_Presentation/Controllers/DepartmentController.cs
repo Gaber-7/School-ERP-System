@@ -87,7 +87,7 @@ namespace LMS_Presentation_Layer.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(long id)
+        public  IActionResult Delete(long id)
         {
             if (id == 0)
             { 
