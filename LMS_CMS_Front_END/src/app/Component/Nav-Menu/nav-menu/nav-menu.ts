@@ -13,10 +13,10 @@ export class NavMenu {
 isMenuOpen = false;
 
   navItems = [
-    { label: 'الرئيسية', link: '#' },
-    { label: 'الخدمات', link: '#' },
-    { label: 'عن الشركة', link: '#' },
-    { label: 'اتصل بنا', link: '#' },
+    { label: 'Home', link: '#' },
+    { label: 'Services', link: '#' },
+    { label: 'About Us', link: '#' },
+    { label: 'Contact Us', link: '#' },
   ];
 
   toggleMenu() {
