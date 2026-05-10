@@ -38,7 +38,7 @@ namespace LMS_Data_Access_Layer.Data
         public DbSet<GradeSupervisor> GradeSupervisors { get; set; }
         public DbSet<LeaveRequest> leaveRequests { get; set; }
         public DbSet<EmployeeAttachment> EmployeeAttachment { get; set; }
-
+        public DbSet<Page> Page { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -61,6 +61,10 @@ namespace LMS_Data_Access_Layer.Data
             modelBuilder.Entity<Employee>()
                 .HasIndex(p => p.Email)
                 .IsUnique();
+
+            modelBuilder.Entity<Page>()
+                .Property(p => p.ID)
+                .ValueGeneratedNever();
 
 
 
@@ -126,6 +130,13 @@ namespace LMS_Data_Access_Layer.Data
                  .WithMany(p => p.Employees)
                  .HasForeignKey(p => p.AcademicDegreeID)
                  .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Page>()
+                 .HasOne(p => p.Parent)
+                 .WithMany(p => p.ChildPages)
+                 .HasForeignKey(p => p.Page_ID)
+                 .OnDelete(DeleteBehavior.Restrict);
+
 
             modelBuilder.Entity<AcademicYear>()
                .HasOne(p => p.School)

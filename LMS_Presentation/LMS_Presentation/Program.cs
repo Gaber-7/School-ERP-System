@@ -1,4 +1,4 @@
-using AutoMapper;
+﻿using AutoMapper;
 using LMS_Business_Layer.Config;
 using LMS_Data_Access_Layer.Data;
 using LMS_Data_Access_Layer.IUnitOfWorkfolder.UnitOfWork;
@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
 
 
 
@@ -37,6 +36,20 @@ namespace LMS_Presentation
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            // =========================
+            // CORS
+            // =========================
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAngular",
+                    policy =>
+                    {
+                        policy.WithOrigins("http://localhost:4200")
+                              .AllowAnyHeader()
+                              .AllowAnyMethod();
+                    });
+            });
+
             var app = builder.Build();
          
             if (app.Environment.IsDevelopment())
@@ -47,6 +60,8 @@ namespace LMS_Presentation
 
             app.UseHttpsRedirection();
 
+            // تفعيل CORS
+            app.UseCors("AllowAngular");
             app.UseAuthorization();
 
 

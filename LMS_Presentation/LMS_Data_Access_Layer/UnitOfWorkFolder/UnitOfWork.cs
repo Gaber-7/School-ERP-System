@@ -45,6 +45,7 @@ namespace LMS_Data_Access_Layer.IUnitOfWorkfolder.UnitOfWork
             GradeSupervisors_Repository = new GenericRepo<GradeSupervisor>(_context);
             LeaveRequests_Repository = new GenericRepo<LeaveRequest>(_context);
             EmployeeAttachment_Repository = new GenericRepo<EmployeeAttachment>(_context);
+            Page_Repository = new GenericRepo<Page>(_context);
 
         }
 
@@ -92,6 +93,8 @@ namespace LMS_Data_Access_Layer.IUnitOfWorkfolder.UnitOfWork
         public IGenericRepository<LeaveRequest> LeaveRequests_Repository { get; }
 
         public IGenericRepository<EmployeeAttachment> EmployeeAttachment_Repository { get; }
+        public IGenericRepository<Page> Page_Repository { get; }
+
     }
 
 

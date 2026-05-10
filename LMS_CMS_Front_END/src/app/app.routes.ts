@@ -6,6 +6,6 @@ import { SideMenu } from './Component/Side-Menu/side-menu/side-menu';
 export const routes: Routes = [
 
   
-    { path: 'dashboard', component: SideMenu }
+    { path: '', component: SideMenu }
 
 ];

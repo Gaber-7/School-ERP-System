@@ -2,9 +2,11 @@
 using LMS_Business_Layer.DTO.AcademicYearDTO;
 using LMS_Business_Layer.DTO.DepartmentDTO;
 using LMS_Business_Layer.DTO.Grade_DTO;
+using LMS_Business_Layer.DTO.Page_DTO;
 using LMS_Business_Layer.DTO.School_DTO;
 using LMS_Business_Layer.DTO.SectionDTO;
 using LMS_Business_Layer.DTO.Semester_DTO;
+using LMS_Data_Access_Layer.Models;
 using LMS_Data_Access_Layer.Models.Administration;
 using LMS_Data_Access_Layer.Models.Learning_Management_System;
 using System;
@@ -89,7 +91,10 @@ namespace LMS_Business_Layer.Config
             // Subject Category Mappings
 
 
-
+            // page Mappings
+            CreateMap<Page, Page_Get_DTO>()
+                .ForMember(dest => dest.Children,
+                       opt => opt.MapFrom(src => src.ChildPages));
         }
     }
 }

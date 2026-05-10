@@ -55,7 +55,8 @@ namespace LMS_Presentation_Layer.Controllers.Administration
             if (grade_Add_DTO.Name == null)
                 return BadRequest("Grade Name is required.");
        
-            Section section = await unitOfWork.Sections_Repository.FindByIncludesAsync(sec => sec.ID == grade_Add_DTO.SectionID && sec.IsDeleted != true, query => query.Include(emp => emp.school));
+            Section section = await unitOfWork.Sections_Repository.FindByIncludesAsync(sec => sec.ID == grade_Add_DTO.SectionID && sec.IsDeleted != true,
+                query => query.Include(emp => emp.school));
 
             if (section == null)
                 return NotFound($"Section with ID {grade_Add_DTO.SectionID} not found.");

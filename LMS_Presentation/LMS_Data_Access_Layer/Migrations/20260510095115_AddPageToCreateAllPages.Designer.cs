@@ -4,6 +4,7 @@ using LMS_Data_Access_Layer.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LMS_Data_Access_Layer.Migrations
 {
     [DbContext(typeof(LMS_CMS_Context))]
-    partial class LMS_CMS_ContextModelSnapshot : ModelSnapshot
+    [Migration("20260510095115_AddPageToCreateAllPages")]
+    partial class AddPageToCreateAllPages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1742,22 +1745,6 @@ namespace LMS_Data_Access_Layer.Migrations
                     b.Property<long>("ID")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Ar_name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("En_name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Icon")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsDisplay")
                         .HasColumnType("bit");
 
@@ -1767,17 +1754,21 @@ namespace LMS_Data_Access_Layer.Migrations
                     b.Property<long?>("Page_ID")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("PermissionKey")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Route")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("arDisplayName_name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ar_name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("enDisplayName_name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("en_name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("ID");
 
