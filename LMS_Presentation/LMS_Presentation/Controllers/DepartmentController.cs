@@ -2,6 +2,7 @@
 using LMS_Business_Layer.DTO.DepartmentDTO;
 using LMS_Data_Access_Layer.IUnitOfWorkFolder.Interface;
 using LMS_Data_Access_Layer.Models.Administration;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace LMS_Presentation_Layer.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "Department.View")]
         public async Task<IActionResult> GetAsync()
         {
             var departments = await unitOfWork.Departmentes_Repository.Select_All_With_IncludesById(d => d.IsDeleted != true);
@@ -35,6 +37,7 @@ namespace LMS_Presentation_Layer.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Policy = "Department.View")]
         public async Task<IActionResult> GetByIdAsync(long id)
         {
             Department department = unitOfWork.Departmentes_Repository.First_Or_Default(
@@ -48,6 +51,7 @@ namespace LMS_Presentation_Layer.Controllers
 
         }
         [HttpPost]
+        [Authorize(Policy = "Department.Create")]
         public async Task<IActionResult> Add([FromBody] Department_Add_DTO department_Add_DTO)
         {
             
@@ -87,6 +91,7 @@ namespace LMS_Presentation_Layer.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = "Employee.Delete")]
         public  IActionResult Delete(long id)
         {
             if (id == 0)

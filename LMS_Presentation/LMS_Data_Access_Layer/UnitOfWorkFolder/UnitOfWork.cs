@@ -46,6 +46,8 @@ namespace LMS_Data_Access_Layer.IUnitOfWorkfolder.UnitOfWork
             LeaveRequests_Repository = new GenericRepo<LeaveRequest>(_context);
             EmployeeAttachment_Repository = new GenericRepo<EmployeeAttachment>(_context);
             Page_Repository = new GenericRepo<Page>(_context);
+            RolePermission_Repository = new GenericRepo<RolePermission>(_context);
+            UserType_Repository = new GenericRepo<UserType>(_context);
 
         }
 
@@ -94,6 +96,8 @@ namespace LMS_Data_Access_Layer.IUnitOfWorkfolder.UnitOfWork
 
         public IGenericRepository<EmployeeAttachment> EmployeeAttachment_Repository { get; }
         public IGenericRepository<Page> Page_Repository { get; }
+        public IGenericRepository<RolePermission> RolePermission_Repository { get; }
+        public IGenericRepository<UserType> UserType_Repository { get; }
 
     }
 

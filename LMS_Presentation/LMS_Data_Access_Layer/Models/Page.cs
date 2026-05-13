@@ -11,6 +11,7 @@ namespace LMS_Data_Access_Layer.Models
     public class Page
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long ID { get; set; }
         [Required(ErrorMessage = "Name is required")]
         [StringLength(100, ErrorMessage = "Name cannot be longer than 100 characters.")]
@@ -26,10 +27,12 @@ namespace LMS_Data_Access_Layer.Models
         public string? Route { get; set; }
         public bool IsDisplay { get; set; } = true;
         public bool IsActive { get; set; } = true;
+
         public string? PermissionKey { get; set; }
         [ForeignKey("Parent")]
         public long? Page_ID { get; set; }
         public Page Parent { get; set; }
         public ICollection<Page> ChildPages { get; set; } = new List<Page>();
+        public ICollection<RolePermission> RolePermissions { get; set; }
     }
 }

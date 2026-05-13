@@ -16,6 +16,7 @@ namespace LMS_Data_Access_Layer.Models
         [StringLength(100, ErrorMessage = "Role cannot be longer than 100 characters.")]
         public string Name { get; set; }
         public ICollection<Employee> Employess { get; set; } = new HashSet<Employee>();
+        public ICollection<RolePermission> RolePermissions { get; set; } = new HashSet<RolePermission>();
 
     }
 }

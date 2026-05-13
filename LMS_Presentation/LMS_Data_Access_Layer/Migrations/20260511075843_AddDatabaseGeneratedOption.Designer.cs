@@ -4,6 +4,7 @@ using LMS_Data_Access_Layer.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LMS_Data_Access_Layer.Migrations
 {
     [DbContext(typeof(LMS_CMS_Context))]
-    partial class LMS_CMS_ContextModelSnapshot : ModelSnapshot
+    [Migration("20260511075843_AddDatabaseGeneratedOption")]
+    partial class AddDatabaseGeneratedOption
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1843,96 +1846,6 @@ namespace LMS_Data_Access_Layer.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("LMS_Data_Access_Layer.Models.RolePermission", b =>
-                {
-                    b.Property<long>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("ID"));
-
-                    b.Property<bool>("Allow_Create")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Allow_Delete")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Allow_Edit")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Allow_Export")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Allow_Print")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Allow_View")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("DeletedByOctaId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeletedByUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("InsertedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("InsertedByOctaId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("InsertedByUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<bool?>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<long>("PageId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("RoleId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("UpdatedByOctaId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("UpdatedByUserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("DeletedByUserId");
-
-                    b.HasIndex("InsertedByUserId");
-
-                    b.HasIndex("RoleId");
-
-                    b.HasIndex("UpdatedByUserId");
-
-                    b.ToTable("RolePermission");
-                });
-
-            modelBuilder.Entity("LMS_Data_Access_Layer.Models.UserType", b =>
-                {
-                    b.Property<long>("ID")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("UserTypes");
-                });
-
             modelBuilder.Entity("LMS_Data_Access_Layer.Models.Administration.AcademicDegree", b =>
                 {
                     b.HasOne("LMS_Data_Access_Layer.Models.Employee", "DeletedByEmployee")
@@ -2617,43 +2530,6 @@ namespace LMS_Data_Access_Layer.Migrations
                     b.Navigation("UpdatedByEmployee");
                 });
 
-            modelBuilder.Entity("LMS_Data_Access_Layer.Models.RolePermission", b =>
-                {
-                    b.HasOne("LMS_Data_Access_Layer.Models.Employee", "DeletedByEmployee")
-                        .WithMany()
-                        .HasForeignKey("DeletedByUserId");
-
-                    b.HasOne("LMS_Data_Access_Layer.Models.Employee", "InsertedByEmployee")
-                        .WithMany()
-                        .HasForeignKey("InsertedByUserId");
-
-                    b.HasOne("LMS_Data_Access_Layer.Models.Page", "Page")
-                        .WithMany("RolePermissions")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LMS_Data_Access_Layer.Models.Role", "Role")
-                        .WithMany("RolePermissions")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LMS_Data_Access_Layer.Models.Employee", "UpdatedByEmployee")
-                        .WithMany()
-                        .HasForeignKey("UpdatedByUserId");
-
-                    b.Navigation("DeletedByEmployee");
-
-                    b.Navigation("InsertedByEmployee");
-
-                    b.Navigation("Page");
-
-                    b.Navigation("Role");
-
-                    b.Navigation("UpdatedByEmployee");
-                });
-
             modelBuilder.Entity("LMS_Data_Access_Layer.Models.Administration.AcademicDegree", b =>
                 {
                     b.Navigation("Employees");
@@ -2752,15 +2628,11 @@ namespace LMS_Data_Access_Layer.Migrations
             modelBuilder.Entity("LMS_Data_Access_Layer.Models.Page", b =>
                 {
                     b.Navigation("ChildPages");
-
-                    b.Navigation("RolePermissions");
                 });
 
             modelBuilder.Entity("LMS_Data_Access_Layer.Models.Role", b =>
                 {
                     b.Navigation("Employess");
-
-                    b.Navigation("RolePermissions");
                 });
 #pragma warning restore 612, 618
         }

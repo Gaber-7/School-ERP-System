@@ -39,6 +39,8 @@ namespace LMS_Data_Access_Layer.Data
         public DbSet<LeaveRequest> leaveRequests { get; set; }
         public DbSet<EmployeeAttachment> EmployeeAttachment { get; set; }
         public DbSet<Page> Page { get; set; }
+        public DbSet<RolePermission> RolePermission { get; set; }
+        public DbSet<UserType> UserTypes { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -66,7 +68,9 @@ namespace LMS_Data_Access_Layer.Data
                 .Property(p => p.ID)
                 .ValueGeneratedNever();
 
-
+            modelBuilder.Entity<UserType>()
+                .Property(p => p.ID)
+                .ValueGeneratedNever();
 
             //modelBuilder.Entity<AcademicYear>()
             //.HasIndex(c => c.SchoolID)
@@ -136,6 +140,18 @@ namespace LMS_Data_Access_Layer.Data
                  .WithMany(p => p.ChildPages)
                  .HasForeignKey(p => p.Page_ID)
                  .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<RolePermission>()
+                  .HasOne(p => p.Role)
+                  .WithMany(p => p.RolePermissions)
+                  .HasForeignKey(p => p.RoleId)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<RolePermission>()
+                 .HasOne(p => p.Page)
+                 .WithMany(p => p.RolePermissions)
+                 .HasForeignKey(p => p.RoleId)
+                 .OnDelete(DeleteBehavior.Cascade);
 
 
             modelBuilder.Entity<AcademicYear>()

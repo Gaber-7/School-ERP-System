@@ -37,6 +37,9 @@ namespace LMS_Data_Access_Layer.IUnitOfWorkFolder.Interface
         IGenericRepository<LeaveRequest> LeaveRequests_Repository { get; }
         IGenericRepository<EmployeeAttachment> EmployeeAttachment_Repository { get; }
         IGenericRepository<Page> Page_Repository { get; }
+        IGenericRepository<RolePermission> RolePermission_Repository { get; }
+        IGenericRepository<UserType> UserType_Repository { get; }
+
 
 
     }
