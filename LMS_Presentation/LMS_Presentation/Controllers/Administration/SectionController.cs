@@ -3,12 +3,15 @@ using LMS_Business_Layer.DTO.SectionDTO;
 using LMS_Data_Access_Layer.IUnitOfWorkFolder.Interface;
 using LMS_Data_Access_Layer.Models.Administration;
 using LMS_Data_Access_Layer.Models.Learning_Management_System;
+using LMS_Presentation_Layer.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace LMS_Presentation_Layer.Controllers.Administration
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SectionController : ControllerBase
@@ -22,6 +25,7 @@ namespace LMS_Presentation_Layer.Controllers.Administration
         }
 
         [HttpGet]
+        [Authorize(Policy = Permissions.Section.View)]
         public async Task<IActionResult> GetAsync()
         {
 
@@ -39,6 +43,7 @@ namespace LMS_Presentation_Layer.Controllers.Administration
         }
 
         [HttpGet("{id}")]
+        [Authorize(Policy = Permissions.Section.View)]
         public async Task<IActionResult> GetByIdAsync(long id)
         {
             if (id == 0)
@@ -58,6 +63,7 @@ namespace LMS_Presentation_Layer.Controllers.Administration
         }
 
         [HttpPost]
+        [Authorize(Policy = Permissions.Section.Create)]
         public async Task<IActionResult> PostAsync([FromForm] Section_AddDTO section_AddDTO)
         {
             if (section_AddDTO == null)
@@ -88,6 +94,7 @@ namespace LMS_Presentation_Layer.Controllers.Administration
         }
 
         [HttpPut]
+        [Authorize(Policy = Permissions.Section.Edit)]
         public IActionResult PutAsync([FromForm] Section_EditDTO section_EditDTO)
         {
             if (section_EditDTO == null)
@@ -114,6 +121,7 @@ namespace LMS_Presentation_Layer.Controllers.Administration
 
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = Permissions.Section.Delete)]
         public async Task<IActionResult> DeleteAsync(long id)
         {
             if (id == 0)

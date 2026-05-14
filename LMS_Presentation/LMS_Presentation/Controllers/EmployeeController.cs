@@ -8,7 +8,9 @@ using LMS_Data_Access_Layer.Models;
 using LMS_Data_Access_Layer.Models.Administration;
 using LMS_Data_Access_Layer.Models.HR;
 using LMS_Data_Access_Layer.Models.Learning_Management_System;
+using LMS_Presentation_Layer.Services;
 using LMS_Presentation_Layer.Services.FileValidations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +20,7 @@ using System.Threading.Tasks;
 
 namespace LMS_Presentation_Layer.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeeController : ControllerBase
@@ -34,6 +37,7 @@ namespace LMS_Presentation_Layer.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = Permissions.Employee.View)]
         public async Task<IActionResult> GetAsync()
         {
             List<Employee> Employees = await unitOfWork.Employees_Repository.Select_All_With_IncludesById(
@@ -128,6 +132,7 @@ namespace LMS_Presentation_Layer.Controllers
 
 
         [HttpPost]
+        [Authorize(Policy = Permissions.Employee.Create)]
         public async Task<IActionResult> Add([FromForm] Employee_AddDTO newEmployee, [FromForm] List<EmployeeAttachment_AddDTO> files )
         {
             if (newEmployee == null)

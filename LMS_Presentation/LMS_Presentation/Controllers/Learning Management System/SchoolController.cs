@@ -3,11 +3,14 @@ using LMS_Business_Layer.DTO.School_DTO;
 using LMS_Data_Access_Layer.IUnitOfWorkfolder.UnitOfWork;
 using LMS_Data_Access_Layer.IUnitOfWorkFolder.Interface;
 using LMS_Data_Access_Layer.Models.Learning_Management_System;
+using LMS_Presentation_Layer.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LMS_Presentation_Layer.Controllers.Learning_Management_System
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SchoolController : ControllerBase
@@ -21,6 +24,7 @@ namespace LMS_Presentation_Layer.Controllers.Learning_Management_System
             this.mapper = mapping;
         }
         [HttpGet]
+        [Authorize(Policy = Permissions.School.View)]
         public async Task<IActionResult> GetAsync()
         {
             var schools = await unitOfWork.Schools_Repository.Select_All_With_IncludesById(s => s.IsDeleted != true);
@@ -35,6 +39,7 @@ namespace LMS_Presentation_Layer.Controllers.Learning_Management_System
         }
 
         [HttpGet("{id}")]
+        [Authorize(Policy = Permissions.School.View)]
         public async Task<IActionResult> GetByIdAsync(long id)
         {
             if (id == 0)
@@ -51,6 +56,7 @@ namespace LMS_Presentation_Layer.Controllers.Learning_Management_System
         }
 
         [HttpPost]
+        [Authorize(Policy = Permissions.School.Create)]
         public async Task<IActionResult> Add([FromForm] School_AddDTO newSchool)
         {
 
@@ -73,6 +79,7 @@ namespace LMS_Presentation_Layer.Controllers.Learning_Management_System
         }
 
         [HttpPut]
+        [Authorize(Policy = Permissions.School.Edit)]
         public async Task<IActionResult> Edit([FromForm] School_GetDTO newSchool)
         {
             if (newSchool == null)
@@ -97,6 +104,7 @@ namespace LMS_Presentation_Layer.Controllers.Learning_Management_System
 
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = Permissions.School.Delete)]
         public async Task<IActionResult> Delete(long id)
         {
             if (id == 0)

@@ -4,12 +4,15 @@ using LMS_Data_Access_Layer.IUnitOfWorkfolder.UnitOfWork;
 using LMS_Data_Access_Layer.IUnitOfWorkFolder.Interface;
 using LMS_Data_Access_Layer.Models.Administration;
 using LMS_Data_Access_Layer.Models.Learning_Management_System;
+using LMS_Presentation_Layer.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace LMS_Presentation_Layer.Controllers.Administration
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BuildingController : ControllerBase
@@ -23,6 +26,7 @@ namespace LMS_Presentation_Layer.Controllers.Administration
         }
 
         [HttpGet]
+        [Authorize(Policy = Permissions.Building.View)]
         public async Task<IActionResult> GetAsync()
         {
 
@@ -40,6 +44,7 @@ namespace LMS_Presentation_Layer.Controllers.Administration
 
 
         [HttpGet("{id}")]
+        [Authorize(Policy = Permissions.Building.View)]
         public async Task<IActionResult> GetByIdAsync(long id)
         {
             if (id == 0)
@@ -62,6 +67,7 @@ namespace LMS_Presentation_Layer.Controllers.Administration
 
 
         [HttpPost]
+        [Authorize(Policy = Permissions.Building.Create)]
         public async Task<IActionResult> Add([FromBody] Building_Add_DTO NewBuilding)
         {
             if (NewBuilding == null)
@@ -90,6 +96,7 @@ namespace LMS_Presentation_Layer.Controllers.Administration
         }
 
         [HttpPut]
+        [Authorize(Policy = Permissions.Building.Edit)]
         public async Task<IActionResult> Edit([FromBody] Building_Get_DTO building_Get_DTO)
         {
             if (building_Get_DTO == null)
@@ -124,6 +131,7 @@ namespace LMS_Presentation_Layer.Controllers.Administration
 
         }
         [HttpDelete("{id}")]
+        [Authorize(Policy = Permissions.Building.Delete)]
         public async Task<IActionResult> Delete(long id)
         {
             if (id == 0)
@@ -138,7 +146,8 @@ namespace LMS_Presentation_Layer.Controllers.Administration
             building.IsDeleted = true;
             unitOfWork.Buildings_Repository.Update(building);
             unitOfWork.Buildings_Repository.SaveChanges();
-            return Ok(building);
+
+            return Ok(new{Message = "Building deleted successfully"});
 
 
         }

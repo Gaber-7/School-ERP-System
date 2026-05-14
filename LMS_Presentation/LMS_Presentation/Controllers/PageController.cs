@@ -11,7 +11,7 @@ namespace LMS_Presentation_Layer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PageController : ControllerBase
+    public class PageController : ControllerBase 
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
@@ -25,7 +25,7 @@ namespace LMS_Presentation_Layer.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Get()
-        {
+        {   
             var pages = unitOfWork.Page_Repository.FindBy(x => x.IsActive && x.IsDisplay).ToList();
 
             if (pages == null || !pages.Any())

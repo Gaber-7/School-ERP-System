@@ -35,9 +35,9 @@ namespace LMS_CMS_PL.Services
             // Permissions
             foreach (var permission in permissions.Distinct())           // Ensure distinct permissions 
             {
-               // claims.Add(new Claim("permission", permission));
+                // claims.Add(new Claim("perm", permission));
                 claims.Add(new Claim("perm", permission));
-            }
+            } 
 
             // Generate the symmetric security key using the secret key from configuration
             var key = new SymmetricSecurityKey(   

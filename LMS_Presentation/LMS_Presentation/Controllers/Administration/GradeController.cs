@@ -2,12 +2,15 @@
 using LMS_Business_Layer.DTO.Grade_DTO;
 using LMS_Data_Access_Layer.IUnitOfWorkFolder.Interface;
 using LMS_Data_Access_Layer.Models.Administration;
+using LMS_Presentation_Layer.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace LMS_Presentation_Layer.Controllers.Administration
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class GradeController : ControllerBase
@@ -22,6 +25,7 @@ namespace LMS_Presentation_Layer.Controllers.Administration
         }
 
         [HttpGet]
+        [Authorize(Policy = Permissions.Grade.View)]
         public async Task<IActionResult> GetAsync()
         {
 
@@ -39,6 +43,7 @@ namespace LMS_Presentation_Layer.Controllers.Administration
         }
 
         [HttpPost]
+        [Authorize(Policy = Permissions.Grade.Create)]
         public async Task<IActionResult> PostAsync([FromForm]Grade_Add_DTO grade_Add_DTO)
         {
             if (grade_Add_DTO == null)

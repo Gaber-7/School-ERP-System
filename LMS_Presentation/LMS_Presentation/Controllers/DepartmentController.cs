@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace LMS_Presentation_Layer.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DepartmentController : ControllerBase

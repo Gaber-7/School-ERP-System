@@ -12,7 +12,7 @@ namespace LMS_Presentation_Layer.Services
             var policy = await base.GetPolicyAsync(policyName);
             if (policy != null) return policy;
 
-            // إذا لم يجد Policy بهذا الاسم، سيعتبرها "صلاحية ديناميكية" ويقوم بإنشائها
+            // If the policy is not found in the default provider, we assume it's a permission-based policy and create it dynamically.
             return new AuthorizationPolicyBuilder()
                 .AddRequirements(new PermissionRequirement(policyName))
                 .Build();

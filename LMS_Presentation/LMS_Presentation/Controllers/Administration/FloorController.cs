@@ -3,12 +3,15 @@ using LMS_Business_Layer.DTO.Floor_DTO;
 using LMS_Data_Access_Layer.IUnitOfWorkFolder.Interface;
 using LMS_Data_Access_Layer.Models;
 using LMS_Data_Access_Layer.Models.Administration;
+using LMS_Presentation_Layer.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace LMS_Presentation_Layer.Controllers.Administration
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FloorController : ControllerBase
@@ -22,6 +25,7 @@ namespace LMS_Presentation_Layer.Controllers.Administration
 
         }
         [HttpGet]
+        [Authorize(Policy = Permissions.Floor.View)]
         public async Task<IActionResult> GetAsync()
         {
 
@@ -40,6 +44,7 @@ namespace LMS_Presentation_Layer.Controllers.Administration
         }
 
         [HttpGet("{id}")]
+        [Authorize(Policy = Permissions.Floor.View)]
         public async Task<IActionResult> GetByIdAsync(long id)
         {
             if (id == 0)
@@ -60,6 +65,7 @@ namespace LMS_Presentation_Layer.Controllers.Administration
         }
 
         [HttpPost]
+        [Authorize(Policy = Permissions.Floor.Create)]
         public async Task<IActionResult> Add([FromBody] Floor_Add_DTO NewFloor)
         {
             if (NewFloor == null)
@@ -100,6 +106,7 @@ namespace LMS_Presentation_Layer.Controllers.Administration
         }
 
         [HttpPut]
+        [Authorize(Policy = Permissions.Floor.Edit)]
         public async Task<IActionResult> Update([FromBody] Floor_Update_DTO EditedFloor)
         {
             if (EditedFloor == null)
@@ -152,6 +159,7 @@ namespace LMS_Presentation_Layer.Controllers.Administration
 
         }
         [HttpDelete("{id}")]
+        [Authorize(Policy = Permissions.Floor.Delete)]
         public async Task<IActionResult> Delete(long id)
         {
             if (id == 0)

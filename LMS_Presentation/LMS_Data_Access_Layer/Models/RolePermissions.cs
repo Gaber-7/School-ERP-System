@@ -25,7 +25,7 @@ namespace LMS_Data_Access_Layer.Models
 
         public bool Allow_Export { get; set; }
 
-        public string? PermissionCode { get; set; }
+        public string? PermissionCode { get; set; }  // Optional: A code to represent the specific permission, if needed
 
         [ForeignKey(nameof(Role))]
         public long RoleId { get; set; }

@@ -15,7 +15,7 @@ using System.Text;
 
 
 
-namespace LMS_Presentation
+namespace LMS_Presentation 
 {
     public class Program
     {
@@ -23,7 +23,7 @@ namespace LMS_Presentation
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            // Add services to the container. 
 
             builder.Services.AddDbContext<LMS_CMS_Context>(options =>
                  options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -48,7 +48,7 @@ namespace LMS_Presentation
             builder.Services.AddSingleton<IAuthorizationPolicyProvider, DynamicPermissionPolicyProvider>();
 
             // Register the PermissionHandler to evaluate permissions
-            builder.Services.AddScoped<IAuthorizationHandler, PermissionHandler>();
+            builder.Services.AddScoped<IAuthorizationHandler,PermissionHandler>();
 
             // ========================================================
 

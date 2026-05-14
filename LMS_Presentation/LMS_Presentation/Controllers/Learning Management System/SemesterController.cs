@@ -3,12 +3,15 @@ using LMS_Business_Layer.DTO.Semester_DTO;
 using LMS_Data_Access_Layer.IUnitOfWorkfolder.UnitOfWork;
 using LMS_Data_Access_Layer.IUnitOfWorkFolder.Interface;
 using LMS_Data_Access_Layer.Models.Learning_Management_System;
+using LMS_Presentation_Layer.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace LMS_Presentation_Layer.Controllers.Learning_Management_System
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SemesterController : ControllerBase
@@ -22,6 +25,7 @@ namespace LMS_Presentation_Layer.Controllers.Learning_Management_System
         }
 
         [HttpGet]
+        [Authorize(Policy = Permissions.Semester.View)]
         public async Task<IActionResult> GetAsync()
         {
             List<Semester> semesters = await unitOfWork.Semesters_Repository.Select_All_With_IncludesById(
@@ -41,7 +45,7 @@ namespace LMS_Presentation_Layer.Controllers.Learning_Management_System
         }
 
         [HttpGet("{id}")]
-
+        [Authorize(Policy = Permissions.Semester.View)]
         public async Task<IActionResult> GetByIdAsync(long id)
         {
             if (id == 0)
@@ -63,6 +67,7 @@ namespace LMS_Presentation_Layer.Controllers.Learning_Management_System
 
 
         [HttpPost]
+        [Authorize(Policy = Permissions.Semester.Create)]
         public async Task<IActionResult> PostAsync([FromForm] Semester_Post_DTO semester_Post_DTO)
         {
             if (semester_Post_DTO == null)
@@ -94,6 +99,7 @@ namespace LMS_Presentation_Layer.Controllers.Learning_Management_System
         }
 
         [HttpPut]
+        [Authorize(Policy = Permissions.Semester.Edit)]
         public async Task<IActionResult> Edit([FromForm] SemesterEditDTO semesterEditDTO)
         {
 
@@ -129,6 +135,7 @@ namespace LMS_Presentation_Layer.Controllers.Learning_Management_System
             return Ok(semesterEditDTO);
         }
         [HttpDelete("{id}")]
+        [Authorize(Policy = Permissions.Semester.Delete)]
         public async Task<IActionResult> Delete(long id)
         {
             if (id == 0)
